@@ -1,11 +1,106 @@
-TL; DR;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+% PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+% TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{ 
+\normalfont \normalsize 
+\textsc{University Of Liverpool Online} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge My History With Computing \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Terry Yin} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+% PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+\section{My First Experience With Computers}
+
 It wasn't the most politically stable period around the end of the 80s in China. Yet I was still having a lot of fun being the leader boy of a children's drama group in a kids activity centre of a small city. I thought I would become an actor in the future. Seriously, not a movie star, just an actor. I did play some tiny parts in a few movies. I haven't had a line of my own, ever. Well, as they said, there's no small parts, only small actors.
+
 Despite my dream of being an actor, I was constantly distracted by the computer interest group next to our drama practicing room. The Apple II computers all looked too fancy to me. It was hard to move away my eyes once I put them on the computers every time. But in the late 80s in a small city in China, the distance between a computer and a boy who did stage performance should be measured in light-years.
-A life changing event then happened to me, my drama teacher was assigned a new job as a teacher in an art school (old Socialism system still), so the drama group had to be dismissed. Considering the children’s contribution to the centre during the years, we were allowed to choose to join any group in the centre, for free. So I picked the computer group. I was 12.
-Although I didn’t even know there are 24 letters in English, I quickly fell in love with computers. My dream changed to becoming a software developer. Seriously, not an architect, just a developer. And that hasn’t changed any more for the following 26 years.
-My first computer was an Apple II and then a Chinese copy of Apple II, and then I started to program my neighbour’s Nintendo box (Chinese copy) when I realised that it has the same 6502 CPU which I know the assembly language. One of the pains of the early days was that I only have cassettes or floppy disks pretty late, so I had to create the same thing again and again.
-I got some limited access to PCs later but high schools in China didn’t really promote any hobbies. My parent bought me a 386 computer when I attend the university, studying, well of course, computer science. I used VAX in the university labs. After that I experienced almost all sort of computers because of my profession, from the chips in a bulb (yes, a bulb, for light) to the distributed wireless access network.
-Regarding the comfort level with computers over time, I would like to share something that’s probably different than most of the ideas:-)
-I’m speaking as a software developer, I felt that working with computers has been getting harder and harder. Of course, computers and computer software are getting more and more powerful and more and more friendly. But creating software is another story. People wanted to make software tools more and more powerful and easy to use all the time. As David Wheeler said: "All problems in computer science can be solved by another level of indirection”. So people kept adding higher level “indirections” (also called abstractions). Clearly these abstractions have a lot of wisdom in them, but they are also “leaky”. As a professional you cannot just use the abstraction without caring about all the lower level details. Therefore, eventually, you have to know everything. That’s why I think it’s getting harder and harder to be a professional software developer. If you love software development from heart, this is like ever-lasting fun. If you don’t… We’ll, I’d say you’d better do. You see, there are 2 facts: software is getting increasingly more important in any industry, and making software is getting increasingly harder. Therefore the ones who know how to make software will be the kings of the future.
-Let me give one example. I translated a book that teaches kids programming with Python (from English to Simplified Chinese). During the translation I became very angry. The original author tried to teach the kids Object-Oriented design. When I first learned programming in BASIC, I didn’t even know there are 25 letters (yes, I became a little bit smarter when I was 13), but I was able to create my own game with simple procedure programming. But now the poor kids need to learn object, class, members and polymorphism.
-By the way, I don’t thing you will be one of the kings of the future if you only expect to learn some high level philosophies (including management theories) that covers everything and even the future. Abstractions do not work that well here when it comes to making software. All the really useful things are in the detail. Luckily, that’s also where all the fun is.
+
+A life changing event then happened to me, my drama teacher was assigned a new job as a teacher in an art school (old Socialism system still), so the drama group had to be dismissed. Considering the children's contribution to the centre during the years, we were allowed to choose to join any group in the centre, for free. So I picked the computer group. I was 12.
+
+Although I didn't even know there are 24 letters in English, I quickly fell in love with computers. My dream changed to becoming a software developer. Seriously, not an architect, just a developer. And that hasn't changed any more for the following 26 years.
+
+%------------------------------------------------
+\section{Computers Around Me}
+
+My first computer was an Apple II and then a Chinese copy of Apple II, and then I started to program my neighbour's Nintendo box (Chinese copy) when I realised that it has the same 6502 CPU which I know the assembly language. One of the pains of the early days was that I only have cassettes or floppy disks pretty late, so I had to create the same thing again and again.
+
+I got some limited access to PCs later but high schools in China didn't really promote any hobbies. My parent bought me a 386 computer when I attend the university, studying, well of course, computer science. I used VAX in the university labs. After that I experienced almost all sort of computers because of my profession, from the chips in a bulb (yes, a bulb, for light) to the distributed wireless access network.
+
+%------------------------------------------------
+\section{My Comfort Level With Computers Over Time}
+
+Regarding the comfort level with computers over time, I would like to share something that's probably different than most of the ideas:-)
+
+I'm speaking as a software developer, I felt that working with computers has been getting harder and harder.
+Of course, computers and computer software are getting more and more powerful and more and more friendly.
+But creating software is another story. People wanted to make software tools more and more powerful and
+easy to use all the time. As David Wheeler said: ``All problems in computer science can be solved by another level of indirection''. So people kept adding higher level ``indirections'' (also called abstractions). Clearly these abstractions have a lot of wisdom in them, but they are also ``leaky''. As a professional you cannot just use the abstraction without caring about all the lower level details. Therefore, eventually, you have to know everything. That's why I think it's getting harder and harder to be a professional software developer. If you love software development from heart, this is like ever-lasting fun. You see, there are 2 facts: software is getting increasingly more important in any industry, and making software is getting increasingly harder. Therefore the ones who know how to make software will be the kings of the future.
+
+Let me give one example. I translated a book that teaches kids programming with Python (from English to Simplified Chinese). During the translation I became very angry. The original author tried to teach the kids Object-Oriented design. When I first learned programming in BASIC, I didn't even know there are 25 letters (yes, I became a little bit smarter when I was 13), but I was able to create my own game with simple procedure programming. But now the poor kids need to learn object, class, members and polymorphism.
+
+By the way, I don't think you will be one of the kings of the future if you only expect to learn some high level philosophies (including management theories) that covers everything and even the future. Abstractions do not work that well here when it comes to making software. All the really useful things are in the detail. Luckily, that's also where all the fun is.
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

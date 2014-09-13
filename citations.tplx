@@ -1,0 +1,23 @@
+((*- extends 'article.tplx' -*))
+
+((* block packages *))
+    ((( super() )))
+\usepackage{natbib}
+((* endblock packages *))
+
+((* block definitions *))
+    ((( super() )))
+\bibliographystyle{agsm}
+((* endblock definitions *))
+
+((* block author *))
+\author{Terry Yin}
+((* endblock author *))
+
+((* block markdowncell *))
+    ((( super() | cite_with_pages )))
+((* endblock markdowncell *))
+
+((* block bibliography *))
+\bibliography{t}
+((* endblock bibliography *))
