@@ -3,11 +3,23 @@
 ((* block packages *))
     ((( super() )))
 \usepackage{natbib}
+\usepackage{wrapfig}
+\usepackage[tikz]{bclogo}
 ((* endblock packages *))
 
 ((* block definitions *))
     ((( super() )))
 \bibliographystyle{agsm}
+
+\newcommand\pythonicon{\includegraphics[width=17pt]{resources/python.png}}
+
+\newenvironment{mycodeblock}[1] {
+  \VerbatimEnvironment
+  \begin{bclogo}[couleur = lightgray!30 , arrondi = 0.1 , ombre = true , couleurOmbre =gray!60 , blur ,
+   logo=\pythonicon, barre =snake, noborder = true]{#1}
+  \begin{Verbatim}[commandchars=\\\{\}]}{\end{Verbatim}
+\end{bclogo}}
+
 ((* endblock definitions *))
 
 ((* block author *))
@@ -15,8 +27,21 @@
 ((* endblock author *))
 
 ((* block markdowncell *))
-    ((( super() | cite_with_pages )))
+\setlength{\parskip}{0.5em}
+  ((( cell.source | citation2latex | strip_files_prefix | markdown_extension | markdown2latex | cite_with_pages)))
 ((* endblock markdowncell *))
+
+((* block input scoped *))
+%paragraph spacing
+\setlength{\parskip}{1em}
+%Line spacing
+\renewcommand{\baselinestretch}{1}
+\begin{small}
+\begin{mycodeblock}{}
+((( cell.input | highlight2latex(language=resources.get('language'), metadata=cell.metadata, strip_verbatim=True) )))
+\end{mycodeblock}
+\end{small}
+((* endblock input *))
 
 ((* block bibliography *))
 \bibliography{t}
