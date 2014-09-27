@@ -5,6 +5,7 @@
 \usepackage{natbib}
 \usepackage{wrapfig}
 \usepackage[tikz]{bclogo}
+\usepackage{booktabs}
 ((* endblock packages *))
 
 ((* block definitions *))
