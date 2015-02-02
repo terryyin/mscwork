@@ -1,0 +1,348 @@
+
+            <html>
+                <head>
+                    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
+                    <style type="text/css">
+                        canvas {
+                            border: 1px solid black;
+                            width: 700px;
+                            height: 700px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                    
+
+function TagCloud(w, h, context) {
+    "use strict";
+    this.ctx = context;
+    this.canvasWidth = w;
+    this.canvasHeight = h;
+    this.fontSize = this.canvasHeight / 3;
+    this.shape = "rectangle";
+}
+
+TagCloud.prototype.setShape = function () {
+    this.shape = "circle";
+};
+
+TagCloud.prototype.render = function (tags) {
+    this.ctx.textBaseline = "top";
+    tags.forEach(function (tag) {
+        this.placeTag(tag[0]);
+    }, this);
+};
+
+TagCloud.prototype.placeTag = function (tag) {
+    var placement;
+    while (!(placement = this._getNonOverlappingPlaceWithBestSize(this.fontSize, tag)))
+        this.fontSize *= 0.9;
+
+    this.ctx.fillStyle = this._getRandomColor();
+    this.ctx.fillText(tag, placement.x, placement.y);
+};
+
+TagCloud.prototype._getNonOverlappingPlaceWithBestSize = function (fontSize, tag) {
+    this.ctx.font = "" + fontSize + "pt " + "Arial";
+    var lineHeight=this.getLineHeight(fontSize);
+    var tagWidth = this.ctx.measureText(tag).width;
+
+    var base = new BasePlacement(
+        (this.canvasWidth - tagWidth) * Math.random(),
+        (this.canvasHeight - lineHeight) * Math.random(),
+        lineHeight
+        );
+
+    var placement;
+    /* jshint ignore:start */
+    while (placement = base.nextPlaceToTry()) {
+        if (this._isPlaceEmpty(placement, tagWidth, lineHeight))
+            break;
+    }
+    /* jshint ignore:end */
+    return placement;
+};
+
+TagCloud.prototype.getLineHeight = function (fontSize) {
+    return this.ctx.measureText('M').width * 1.2;
+}
+
+TagCloud.prototype._getRandomColor = function (){
+    var colors = ["aqua", "black", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "silver", "teal"];
+    return colors[Math.floor(colors.length * Math.random())];
+};
+
+TagCloud.prototype._isPlaceEmpty = function (placement, width, height) {
+    if (placement.x < 0 || placement.y < 0 || placement.x + width > this.canvasWidth || placement.y + height > this.canvasHeight)
+        return false;
+
+    var pix = this.ctx.getImageData(placement.x, placement.y, width, height).data;
+
+    for (var i = 0, n = pix.length; i < n; i += 4)
+        if (pix[i+3])
+                return false;
+
+    return [[placement.x, placement.y], 
+            [placement.x + width, placement.y], 
+            [placement.x, placement.y + height], 
+            [placement.x + width, placement.y + height]].every(
+                function(pos) {
+                    var a = this.canvasWidth / 2;
+                    var b = this.canvasHeight / 2;
+                    var X = pos[0] - a;
+                    var Y = pos[1] - b;
+                    return (X * X / a / a + Y * Y / b / b < 1);
+                }, this);
+};
+
+TagCloud.prototype.getCoverage = function () {
+    var pix = this.ctx.getImageData(0, 0, this.canvasWidth, this.canvasHeight).data;
+    var pixCount = 0;
+    for (var i = 0, n = pix.length; i < n; i += 4) {
+        if (pix[i+3])
+            pixCount++;
+    }
+    return pixCount * 100 / this.canvasWidth / this.canvasHeight;
+};
+
+function BasePlacement(x, y, h) {
+    var baseX = x,
+        baseY = y,
+        scale = h,
+        tryNumber = 0;
+
+    this.nextPlaceToTry = function() {
+        if (tryNumber < this._spiralOffsets.length)
+            return {
+                x : baseX + this._spiralOffsets[tryNumber][0] * scale,
+                y : baseY + this._spiralOffsets[tryNumber++][1] * scale
+            };
+    };
+}
+
+function generateSpiralOffsets() {
+    var spiralOffsets = [];
+    var radius = 0;
+    var dr = 0.2;
+    for (var i = 0; radius < 40; i+=0.4, radius += dr) {
+        spiralOffsets.push([
+                   radius * Math.sin(i),
+                   radius * Math.cos(i)
+                ]);
+    }
+    return spiralOffsets;
+}
+
+BasePlacement.prototype._spiralOffsets = generateSpiralOffsets();
+
+    
+                    </script> 
+                    <script type="application/javascript">
+                        function draw() {
+                            var canvas = document.getElementById("canvas");
+                                if (canvas.getContext) {
+                                    var ctx = canvas.getContext("2d");
+                                    // scale 2x
+                                    if(window.devicePixelRatio == 2) {
+                                        canvas.setAttribute('width', canvas.width * 2);
+                                        canvas.setAttribute('height', canvas.height * 2);
+                                    }
+                                    var tagCloud = new TagCloud(canvas.width, canvas.height, ctx);
+                                    tagCloud.render([                                        ["a", 218],
+                                        ["b", 127],
+                                        ["this", 124],
+                                        ["c", 101],
+                                        ["function", 62],
+                                        ["d", 53],
+                                        ["var", 50],
+                                        ["g", 40],
+                                        ["f", 33],
+                                        ["0", 31],
+                                        ["prototype", 26],
+                                        ["length", 22],
+                                        ["e", 22],
+                                        ["h", 21],
+                                        ["1", 20],
+                                        ["null", 17],
+                                        ["$", 15],
+                                        ["typeof", 15],
+                                        ["push", 15],
+                                        ["arguments", 13],
+                                        ["V", 13],
+                                        ["call", 12],
+                                        ["u", 12],
+                                        ["new", 11],
+                                        ["p", 10],
+                                        ["apply", 10],
+                                        ["replace", 9],
+                                        ["q", 9],
+                                        ["toString", 8],
+                                        ["fa", 8],
+                                        ["ga", 7],
+                                        ["Z", 7],
+                                        ["H", 7],
+                                        ["da", 7],
+                                        ["X", 7],
+                                        ["ea", 7],
+                                        ["String", 7],
+                                        ["indexOf", 7],
+                                        ["U", 7],
+                                        ["Y", 7],
+                                        ["Array", 7],
+                                        ["xc", 6],
+                                        ["=!", 6],
+                                        ["l", 6],
+                                        ["wc", 6],
+                                        ["slice", 6],
+                                        ["]||", 6],
+                                        ["W", 6],
+                                        ["2", 6],
+                                        ["R", 6],
+                                        ["M", 6],
+                                        ["decodeURIComponent", 6],
+                                        ["get", 5],
+                                        ["L", 5],
+                                        ["instanceof", 5],
+                                        ["t", 5],
+                                        ["set", 5],
+                                        ["wa", 5],
+                                        ["ca", 5],
+                                        ["Fa", 5],
+                                        ["B", 5],
+                                        ["uc", 5],
+                                        ["in", 5],
+                                        ["bind", 5],
+                                        ["Math", 4],
+                                        ["remove", 4],
+                                        ["propertyIsEnumerable", 4],
+                                        ["]=", 4],
+                                        ["k", 4],
+                                        ["Ea", 4],
+                                        ["Function", 4],
+                                        ["Da", 4],
+                                        ["m", 4],
+                                        ["Object", 3],
+                                        ["4", 3],
+                                        ["item", 3],
+                                        ["join", 3],
+                                        ["Q", 3],
+                                        ["Ba", 3],
+                                        ["lc", 3],
+                                        ["throw", 3],
+                                        ["kc", 3],
+                                        ["mc", 3],
+                                        ["vc", 3],
+                                        ["nc", 3],
+                                        ["Error", 3],
+                                        ["T", 3],
+                                        ["na", 3],
+                                        ["encodeURIComponent", 3],
+                                        ["hc", 2],
+                                        ["15", 2],
+                                        ["tc", 2],
+                                        ["ta", 2],
+                                        ["P", 2],
+                                        ["=/", 2],
+                                        ["16", 2],
+                                        ["qa", 2],
+                                        ["Ga", 2],
+                                        ["=!!", 2],
+                                        ["3", 2],
+                                        ["ra", 2],
+                                        ["++]=", 2],
+                                        ["ja", 2],
+                                        ["jc", 2],
+                                        ["!==", 2],
+                                        ["shift", 2],
+                                        ["oa", 2],
+                                        ["s", 2],
+                                        ["unshift", 2],
+                                        ["Date", 2],
+                                        ["type", 2],
+                                        ["charAt", 2],
+                                        ["ha", 2],
+                                        ["sc", 2],
+                                        ["n", 2],
+                                        ["r", 2],
+                                        ["aa", 2],
+                                        ["ia", 2],
+                                        ["floor", 2],
+                                        ["pa", 2],
+                                        ["5", 2],
+                                        ["toLowerCase", 2],
+                                        ["execScript", 2],
+                                        ["kb", 2],
+                                        ["sa", 2],
+                                        ["random", 1],
+                                        ["gc", 1],
+                                        ["lb", 1],
+                                        ["la", 1],
+                                        ["add", 1],
+                                        ["||!", 1],
+                                        ["\\\\", 1],
+                                        ["rc", 1],
+                                        ["forEach", 1],
+                                        ["now", 1],
+                                        ["name", 1],
+                                        ["qc", 1],
+                                        ["ec", 1],
+                                        ["charCodeAt", 1],
+                                        ["encodeURI", 1],
+                                        ["00", 1],
+                                        ["7", 1],
+                                        ["=/</", 1],
+                                        ["C", 1],
+                                        ["nodeType", 1],
+                                        ["ba", 1],
+                                        ["K", 1],
+                                        ["O", 1],
+                                        ["Xb", 1],
+                                        ["240", 1],
+                                        ["splice", 1],
+                                        ["src", 1],
+                                        ["oc", 1],
+                                        ["1E3", 1],
+                                        ["appendChild", 1],
+                                        ["=/>/", 1],
+                                        ["xa", 1],
+                                        ["60", 1],
+                                        ["setVersion", 1],
+                                        ["=/&/", 1],
+                                        ["pc", 1],
+                                        ["pb", 1],
+                                        ["]&&", 1],
+                                        ["6", 1],
+                                        ["start", 1],
+                                        ["Ma", 1],
+                                        ["hasOwnProperty", 1],
+                                        ["createElement", 1],
+                                        ["ma", 1],
+                                        ["Cb", 1],
+                                        ["Ca", 1],
+                                        ["Number", 1],
+                                        ["className", 1],
+                                        ["delete", 1],
+                                        ["va", 1],
+                                        ["/\\+/", 1],
+                                        ["ic", 1],
+                                        ["Tb", 1],
+                                        ["isNaN", 1],
+                                        ["split", 1],
+                                        ["test", 1],
+                                        ["6E4", 1],
+                                        ["max", 1],
+                                        ["Qa", 1],
+                                        ["000", 1],
+                                        ["concat", 1],
+                                        ["ka", 1],
+                                        ["121", 1],
+                                        ["createTextNode", 1],
+
+                                    ]);
+                                }
+                        }
+                    </script>
+                </head>
+                <body onload="draw();">
+                    <canvas id="canvas" width="700" height="700"></canvas>
+                </body>
+            </html>
